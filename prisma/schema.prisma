@@ -1,0 +1,176 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
+  @@index([email])
+  @@map("users")
+}
+
+model Post {
+  slug      String   @id
+  createdAt DateTime @default(now()) @map("created_at")
+
+  title String
+
+  content String
+
+  comments Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  name    String
+  content String
+  visible Boolean @default(false)
+
+  post     Post   @relation(fields: [postSlug], references: [slug], onDelete: Cascade)
+  postSlug String
+
+  @@index([visible, postSlug])
+  @@map("comments")
+}
+
+model Contact {
+  id      Int    @id @default(autoincrement())
+  email   String
+  name    String
+  content String
+
+  @@map("contacts")
+}
+
+model PortfolioType {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  portfolios Portfolio[]
+
+  @@map("portfolio_types")
+}
+
+model Portfolio {
+  id Int @id @default(autoincrement())
+
+  image String?
+  name  String
+  link  String
+
+  portfolioType   PortfolioType @relation(fields: [portfolioTypeId], references: [id], onDelete: Cascade)
+  portfolioTypeId Int
+
+  @@index([portfolioTypeId])
+  @@map("portfolios")
+}
+
+model Education {
+  id Int @id @default(autoincrement())
+
+  title   String
+  start   String
+  end     String
+  content String
+
+  about   About @relation(fields: [aboutId], references: [id], onDelete: Cascade)
+  aboutId Int
+
+  @@index([aboutId])
+  @@map("educations")
+}
+
+model Experience {
+  id Int @id @default(autoincrement())
+
+  title   String
+  start   String
+  end     String
+  content String
+
+  about   About @relation(fields: [aboutId], references: [id], onDelete: Cascade)
+  aboutId Int
+
+  @@index([aboutId])
+  @@map("experiences")
+}
+
+model Skill {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  skillTopic   SkillTopic @relation(fields: [skillTopicId], references: [id], onDelete: Cascade)
+  skillTopicId Int
+
+  @@index([skillTopicId])
+  @@map("skills")
+}
+
+model SkillTopic {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  skills  Skill[]
+  about   About   @relation(fields: [aboutId], references: [id], onDelete: Cascade)
+  aboutId Int
+
+  @@index([aboutId])
+  @@map("skill_topics")
+}
+
+model About {
+  id Int @id @default(autoincrement())
+
+  content String
+
+  educations  Education[]
+  experiences Experience[]
+  skillTopics SkillTopic[]
+
+  @@map("abouts")
+}
+
+model Link {
+  id Int @id @default(autoincrement())
+
+  name String
+  link String
+  icon String
+
+  info   Info @relation(fields: [infoId], references: [id], onDelete: Cascade)
+  infoId Int
+
+  @@index([infoId])
+  @@map("links")
+}
+
+model Info {
+  id Int @id @default(autoincrement())
+
+  name      String
+  postition String
+  location  String
+  email     String
+  phone     String
+  resume    String
+
+  links Link[]
+
+  @@map("infos")
+}
