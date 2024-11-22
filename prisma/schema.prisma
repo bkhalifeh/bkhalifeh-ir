@@ -165,12 +165,12 @@ model Info {
   id Int @id @default(autoincrement())
 
   name      String
-  image     String
+  image     String?
   postition String
   location  String
   email     String
   phone     String
-  resume    String
+  resume    String?
 
   links Link[]
 
