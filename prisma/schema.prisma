@@ -23,8 +23,8 @@ model Post {
   slug      String   @id
   createdAt DateTime @default(now()) @map("created_at")
 
-  title String
-
+  title   String
+  summary String
   content String
 
   comments Comment[]
