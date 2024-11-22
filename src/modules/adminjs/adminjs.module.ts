@@ -41,6 +41,7 @@ import { UtilModule } from '../util/util.module';
           const rargs = {
             componentLoader,
             prismaService,
+            utilService,
           };
 
           adminjs.AdminJS.registerAdapter({
