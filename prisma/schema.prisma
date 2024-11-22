@@ -164,6 +164,7 @@ model Info {
   id Int @id @default(autoincrement())
 
   name      String
+  image     String
   postition String
   location  String
   email     String
@@ -173,4 +174,14 @@ model Info {
   links Link[]
 
   @@map("infos")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+
+  @@index([sid])
+  @@map("sessions")
 }
