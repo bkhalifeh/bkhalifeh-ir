@@ -24,6 +24,7 @@ model Post {
   createdAt DateTime @default(now()) @map("created_at")
 
   title   String
+  image   String
   summary String
   content String
 
