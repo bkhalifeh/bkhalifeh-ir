@@ -4,7 +4,7 @@ import { PortfolioService } from './portfolio.service';
 import { InfoService } from '../info/info.service';
 
 @Controller('portfolio')
-// @UseInterceptors(CacheInterceptor)
+@UseInterceptors(CacheInterceptor)
 export class PortfolioController {
   constructor(
     private readonly portfolioService: PortfolioService,
