@@ -59,6 +59,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 pnpm-lock.yaml
 .adminjs
 *.db
+*.db-journal
 static/img/post
 static/img/info
 static/img/portfolio
