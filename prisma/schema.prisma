@@ -29,8 +29,22 @@ model Post {
   content String
 
   comments Comment[]
+  links    PostLink[]
 
   @@map("posts")
+}
+
+model PostLink {
+  id Int @id @default(autoincrement())
+
+  name     String
+  link     String
+  icon     String
+  post     Post   @relation(fields: [postSlug], references: [slug])
+  postSlug String
+
+  @@index([postSlug])
+  @@map("post_links")
 }
 
 model Comment {
