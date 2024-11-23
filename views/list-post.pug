@@ -1,0 +1,15 @@
+extends base.pug
+
+block content
+  .pb-2
+    h1.title.title--h1.title__separate وبلاگ
+  .news-grid.pb-0
+    each post in posts
+      article.news-item.box
+        .news-item__image-wrap.overlay.overlay--45
+          .news-item__date= new Intl.DateTimeFormat('fa-IR').format(post.createdAt)
+          a.news-item__link(href=`/blog/${post.slug}`)
+          img.cover.lazyload(src=`/static/img/post/${post.image}`, alt)
+        .news-item__caption
+          h2.title.title--h4= post.title
+          p= post.summary

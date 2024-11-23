@@ -1,0 +1,38 @@
+extends base.pug
+
+block content
+  .pb-3
+    header.header-post
+      .header-post__date= new Intl.DateTimeFormat('fa-IR').format(post.createdAt)
+      h1.title.title--h1= post.title
+      .header-post__image-wrap
+        if post.image
+          img.cover.lazyload(src=`/static/img/post/${post.image}`, alt)
+    .caption-post !{post.content}
+    footer.footer-post
+      each pl in post.links
+        a.footer-post__share(href=`${pl.link}`)
+          i(class=`font-icon icon-${pl.icon}`)
+          span= pl.name
+  .box-inner.box-inner--rounded
+    h2.title.title--h3
+      | نظرات 
+      span.color--light (#{post.comments.length})
+    form.comment-form(action=`/blog/${post.slug}/comment`, method="post")
+      .row
+        .form-group.col-12.col-md-6
+          i.font-icon.icon-user
+          input.input.input__icon.input--white.form-control(type="text", name="name", placeholder="نام و نام خانوادگی", required )
+        .form-group.col-12.col-md-6
+          input.form-control.btn(type="submit", value="ارسال")
+        .form-group.col-12.col-md-12
+          textarea#commentForm.textarea.textarea--white.form-control(required, name="content", placeholder="بنویسید...", rows="1")
+    br
+    each comment in post.comments
+      .comment-box
+        .comment-box__inner
+          .comment-box__body
+            h5.comment-box__details
+              span= comment.name
+              span.comment-box__details-date= new Intl.DateTimeFormat('fa-IR').format(comment.createdAt)
+            p= comment.content
