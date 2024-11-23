@@ -18,9 +18,9 @@ export class PortfolioController {
     const { portfolioTypes, portfolios } = await this.portfolioService.find();
     return {
       author: info.name,
-      active: 'about',
-      title: 'درباره من',
-      description: 'صفحه ی درباره من',
+      active: 'portfolio',
+      title: 'نمونه کار ها',
+      description: 'صفحه ی نمونه کار های انجام شده',
       info,
       portfolioTypes,
       portfolios,
