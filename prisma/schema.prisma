@@ -74,7 +74,7 @@ model Contact {
 model PortfolioType {
   id    Int    @id @default(autoincrement())
   title String
-  slug  String
+  slug  String @unique
 
   portfolios Portfolio[]
 
