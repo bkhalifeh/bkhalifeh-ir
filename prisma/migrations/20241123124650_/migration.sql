@@ -10,7 +10,19 @@ CREATE TABLE "posts" (
     "slug" TEXT NOT NULL PRIMARY KEY,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "title" TEXT NOT NULL,
+    "image" TEXT,
+    "summary" TEXT NOT NULL,
     "content" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "post_links" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "link" TEXT NOT NULL,
+    "icon" TEXT NOT NULL,
+    "postSlug" TEXT NOT NULL,
+    CONSTRAINT "post_links_postSlug_fkey" FOREIGN KEY ("postSlug") REFERENCES "posts" ("slug") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -35,7 +47,8 @@ CREATE TABLE "contacts" (
 -- CreateTable
 CREATE TABLE "portfolio_types" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "title" TEXT NOT NULL
+    "title" TEXT NOT NULL,
+    "slug" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -106,11 +119,20 @@ CREATE TABLE "links" (
 CREATE TABLE "infos" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
+    "image" TEXT,
     "postition" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    "resume" TEXT NOT NULL
+    "resume" TEXT
+);
+
+-- CreateTable
+CREATE TABLE "sessions" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "sid" TEXT NOT NULL,
+    "data" TEXT NOT NULL,
+    "expiresAt" DATETIME NOT NULL
 );
 
 -- CreateIndex
@@ -120,7 +142,13 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE INDEX "users_email_idx" ON "users"("email");
 
 -- CreateIndex
+CREATE INDEX "post_links_postSlug_idx" ON "post_links"("postSlug");
+
+-- CreateIndex
 CREATE INDEX "comments_visible_postSlug_idx" ON "comments"("visible", "postSlug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "portfolio_types_slug_key" ON "portfolio_types"("slug");
 
 -- CreateIndex
 CREATE INDEX "portfolios_portfolioTypeId_idx" ON "portfolios"("portfolioTypeId");
@@ -139,3 +167,9 @@ CREATE INDEX "skill_topics_aboutId_idx" ON "skill_topics"("aboutId");
 
 -- CreateIndex
 CREATE INDEX "links_infoId_idx" ON "links"("infoId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "sessions_sid_key" ON "sessions"("sid");
+
+-- CreateIndex
+CREATE INDEX "sessions_sid_idx" ON "sessions"("sid");
