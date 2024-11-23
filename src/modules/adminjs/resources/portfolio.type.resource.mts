@@ -5,6 +5,7 @@ import {
   owningRelationSettingsFeature,
   RelationType,
 } from '../features/adminjs-relation/index.mjs';
+import slugFeature from '../features/slug.feature.mjs';
 
 export const PortfolioTypeResource = async (
   args: TResourceInput,
@@ -18,6 +19,15 @@ export const PortfolioTypeResource = async (
       navigation: {
         icon: 'Award',
         name: 'Portfolio Section',
+      },
+      properties: {
+        slug: {
+          isVisible: {
+            edit: false,
+            list: true,
+            show: true,
+          },
+        },
       },
     },
     features: [
@@ -33,6 +43,7 @@ export const PortfolioTypeResource = async (
           },
         },
       }),
+      slugFeature([{ input: 'title', output: 'slug' }]),
     ],
   };
 };

@@ -1,0 +1,26 @@
+extends base.pug
+
+block content
+  .pb-2
+    h1.title.title--h1.title__separate نمونه کار ها
+  .pb-0
+    .select
+      span.placeholder انتخاب دسته بندی
+      ul.filter
+        li.filter__item دسته بندی
+        li.filter__item.active(data-filter="*")
+          a.filter__link.active(href="#filter") همه
+        each portfolioType in portfolioTypes
+          li.filter__item(data-filter=`.category-${portfolioType.slug}`)
+            a.filter__link(href="#filter")= portfolioType.title
+      input(type="hidden", name="changemetoo") 
+    .gallery-grid.js-masonry.js-filter-container
+      .gutter-sizer
+      each portfolio in portfolios
+        figure(class=`gallery-grid__item category-${portfolio.portfolioType.slug}`)
+          .gallery-grid__image-wrap
+            img.gallery-grid__image.cover.lazyload(src=`${portfolio.image ? '/static/img/portfolio/' + portfolio.image : ''}`, data-zoom, alt)
+          figcaption.gallery-grid__caption
+            h4.title.gallery-grid__title
+              a(href=`${portfolio.link}`, target="_blank")= portfolio.name
+            span.gallery-grid__category= portfolio.portfolioType.title
