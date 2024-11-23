@@ -95,36 +95,26 @@ import { UtilModule } from '../util/util.module';
                 .toString(),
               provider: new adminjs.DefaultAuthProvider({
                 componentLoader,
-                authenticate: isProduction
-                  ? async (payload, context) => {
-                      if (
-                        isEmail(payload.email) &&
-                        isStrongPassword(payload.password)
-                      ) {
-                        const admin = await prismaService.user.findUnique({
-                          where: { email: payload.email },
-                        });
-                        if (
-                          admin &&
-                          (await argon2.verify(
-                            admin.password,
-                            payload.password,
-                          ))
-                        ) {
-                          return {
-                            email: admin.email,
-                            theme: 'light',
-                          };
-                        }
-                      }
-                      return null;
-                    }
-                  : async (payload, context) => {
-                      const email = 'example@bkhalifeh.ir';
+                authenticate: async (payload, context) => {
+                  if (
+                    isEmail(payload.email) &&
+                    isStrongPassword(payload.password)
+                  ) {
+                    const admin = await prismaService.user.findUnique({
+                      where: { email: payload.email },
+                    });
+                    if (
+                      admin &&
+                      (await argon2.verify(admin.password, payload.password))
+                    ) {
                       return {
-                        email,
+                        email: admin.email,
+                        theme: 'light',
                       };
-                    },
+                    }
+                  }
+                  return null;
+                },
               }),
             },
           };
