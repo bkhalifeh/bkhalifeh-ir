@@ -18,7 +18,7 @@ export const ExperienceResource = async (
       },
       properties: {
         content: {
-          type: 'richtext',
+          type: 'textarea',
         },
       },
     },

@@ -18,7 +18,7 @@ export const EducationResource = async (
       },
       properties: {
         content: {
-          type: 'richtext',
+          type: 'textarea',
         },
       },
     },
