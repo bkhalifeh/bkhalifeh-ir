@@ -1,0 +1,26 @@
+extends base.pug
+
+block content
+  .pb-2
+    h1.title.title--h1.title__separate تماس با من
+  h2.title.title--h3 فرم تماس با من
+  form#contact-form.contact-form(data-toggle="validator", action=`/contact`, method="post")
+    .row
+      .form-group.col-12.col-md-6
+        i.font-icon.icon-user
+        input.input.input__icon.form-control#nameContact(type="text", name="name", placeholder="نام و نام خانوادگی", required, autocomplete="on", oninvalid="setCustomValidity(\'لطفا نام و نام خانوادگی خود را وارد کنید.\')", onkeyup="setCustomValidity(\'\')")
+        .help-block.with-errors
+      .form-group.col-12.col-md-6
+        i.font-icon.icon-envelope
+        input.input.input__icon.form-control#emailContact(type="email", name="email", placeholder="آدرس ایمیل", required, autocomplete="on", oninvalid="setCustomValidity(\'ایمیل نادرست است.\')", onkeyup="setCustomValidity(\'\')")
+        .help-block.with-errors
+      .form-group.col-12.col-md-12
+        textarea.textarea.form-control#messageContact(name="content", placeholder="پیام ...", rows="4", required, oninvalid="setCustomValidity(\'لطفا پیام خود را وارد کنید.\')", onkeyup="setCustomValidity(\'\')")
+        .help-block.with-errors
+    .row
+      .col-12.col-md-6.order-2.order-md-1.text-center.text-md-left
+        #validator-contact.hidden
+      .col-12.col-md-6.order-1.order-md-2.text-left
+        button.btn(type="submit")
+          i.font-icon.icon-send
+          |  ارسال پیام
