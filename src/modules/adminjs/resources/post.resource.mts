@@ -66,6 +66,13 @@ export const PostResource = async (
               resourceId: 'Comment',
             },
           },
+          links: {
+            type: RelationType.OneToMany,
+            target: {
+              joinKey: 'post',
+              resourceId: 'PostLink',
+            },
+          },
         },
       }),
       slugFeature([{ input: 'title', output: 'slug' }]),
