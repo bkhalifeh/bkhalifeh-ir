@@ -56,6 +56,8 @@ export const InfoResource = async (
         properties: {
           key: 'image',
           file: 'imageFile',
+          filePath: 'imageFileFp',
+          filesToDelete: 'imageFileFtd',
         },
         provider: new CustomLocalProvider({
           bucket: join(process.cwd(), 'static/img/info'),

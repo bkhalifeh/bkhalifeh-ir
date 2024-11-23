@@ -12,4 +12,13 @@ export class InfoService {
       },
     });
   }
+
+  async getResume() {
+    const res = await this.prismaService.info.findFirst({
+      select: {
+        resume: true,
+      },
+    });
+    return res.resume;
+  }
 }
