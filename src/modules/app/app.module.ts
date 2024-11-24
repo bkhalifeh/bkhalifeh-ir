@@ -21,7 +21,7 @@ import { PortfolioModule } from '../portfolio/portfolio.module';
       rootPath: join(process.cwd(), 'static'),
       serveRoot: '/static',
     }),
-    CacheModule.register({ isGlobal: true, ttl: 1000 * 3600 * 24 }),
+    CacheModule.register({ isGlobal: true }),
     PrismaModule,
     UtilModule,
     InfoModule,
