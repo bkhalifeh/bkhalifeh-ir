@@ -6,6 +6,6 @@
 
 ### How to use
 
-bash```
+```bash
 git clone https://github.com/bkhalifeh/personal-blog && cd personal-blog && /usr/bin/bash install && pnpm run start
 ```
