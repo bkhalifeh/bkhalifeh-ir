@@ -61,7 +61,6 @@ import { UtilModule } from '../util/util.module';
                 httpOnly: isProduction,
                 sameSite: isProduction,
                 secure: isProduction,
-                signed: isProduction,
               },
               store: new PrismaSessionStore(prismaService, {}),
               saveUninitialized: false,
