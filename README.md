@@ -1,8 +1,8 @@
 # Simple Persoanl Blog
 
 ### Dependency
-(1) Node.js 18+
-(2) Pnpm
+1) Node.js 18+
+2) Pnpm
 
 ### How to use
 
