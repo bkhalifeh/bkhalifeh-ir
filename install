@@ -1,13 +1,25 @@
 #!/usr/bin/bash
+
 mkdir -p static/doc
 mkdir -p static/img/{info,post,portfolio}
+
 cp -f .env.example .env
+
 session_secret=$(openssl rand -base64 32)
 sed -i "s|^SESSION_SECRET=.*|SESSION_SECRET=\"$session_secret\"|" ".env"
+
+read -p "Host: " host
+sed -i "s|^APP_HOST=.*|APP_HOST=\"$host\"|" ".env"
+
+read -p "Port: " port
+sed -i "s|^APP_PORT=.*|APP_PORT=$port|" ".env"
+
 read -p "Admin Email: " new_email
-read -p "Admin Password: " new_password
 sed -i "s|^const EMAIL = '.*';|const EMAIL = '$new_email';|" "prisma/seed.ts"
+
+read -p "Admin Password: " new_password
 sed -i "s|^const PASSWORD = '.*';|const PASSWORD = '$new_password';|" "prisma/seed.ts"
+
 npm install
 npm exec prisma generate
 npm exec prisma migrate deploy
