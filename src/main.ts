@@ -8,6 +8,7 @@ import morgan from 'morgan';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.disable('x-powered-by');
   app.setViewEngine('pug');
   app.setBaseViewsDir(join(process.cwd(), 'views'));
 
