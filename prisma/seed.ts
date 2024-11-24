@@ -1,12 +1,16 @@
 import { PrismaClient } from '@prisma/client';
 import argon2 from 'argon2';
+
+const EMAIL = 'bkhalifeh@protonmail.com';
+const PASSWORD = '1234567890';
+
 const prisma = new PrismaClient();
 async function main() {
   prisma.user
     .create({
       data: {
-        email: 'bkhalifeh@protonmail.com',
-        password: await argon2.hash('Behz@DkH#8049'),
+        email: EMAIL,
+        password: await argon2.hash(PASSWORD),
       },
     })
     .then(() => {});
