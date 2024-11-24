@@ -1,8 +1,4 @@
 import {
-  ActionContext,
-  ActionRequest,
-  BulkActionResponse,
-  RecordActionResponse,
   ResourceWithOptions,
 } from 'adminjs';
 import { getModelByName } from '@adminjs/prisma';
