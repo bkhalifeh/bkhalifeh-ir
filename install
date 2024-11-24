@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+npm i -g pnpm
+
 mkdir -p static/doc
 mkdir -p static/img/{info,post,portfolio}
 
@@ -20,8 +22,8 @@ sed -i "s|^const EMAIL = '.*';|const EMAIL = '$new_email';|" "prisma/seed.ts"
 read -p "Admin Password: " new_password
 sed -i "s|^const PASSWORD = '.*';|const PASSWORD = '$new_password';|" "prisma/seed.ts"
 
-npm install
-npm exec prisma generate
-npm exec prisma migrate deploy
-npm exec prisma db seed
-npm run build
+pnpm install
+pnpm exec prisma generate
+pnpm exec prisma migrate deploy
+pnpm exec prisma db seed
+pnpm run build
