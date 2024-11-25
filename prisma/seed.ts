@@ -2,14 +2,18 @@ import { PrismaClient } from '@prisma/client';
 import argon2 from 'argon2';
 
 const EMAIL = 'bkhalifeh@protonmail.com';
-const PASSWORD = '1234567890';
+const PASSWORD = 'BeHZaD@bu@48';
 
 const prisma = new PrismaClient();
 async function main() {
   prisma.user
-    .create({
-      data: {
+    .upsert({
+      where: { email: EMAIL },
+      create: {
         email: EMAIL,
+        password: await argon2.hash(PASSWORD),
+      },
+      update: {
         password: await argon2.hash(PASSWORD),
       },
     })
