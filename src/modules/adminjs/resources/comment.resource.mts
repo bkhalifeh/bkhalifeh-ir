@@ -16,6 +16,7 @@ export const CommentResource = async (
         icon: 'Edit',
         name: 'Blog',
       },
+      filterProperties: ['visible', 'post'],
     },
     features: [targetRelationSettingsFeature()],
   };
