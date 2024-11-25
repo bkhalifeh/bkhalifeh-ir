@@ -4,7 +4,7 @@ import { InfoService } from '../info/info.service';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('about')
-@UseInterceptors(CacheInterceptor)
+//@UseInterceptors(CacheInterceptor)
 export class AboutController {
   constructor(
     private readonly aboutService: AboutService,

@@ -13,7 +13,7 @@ import { CacheInterceptor } from '@nestjs/cache-manager';
 import { CreateContactDto } from './dtos/create-contact.dto';
 
 @Controller('contact')
-@UseInterceptors(CacheInterceptor)
+// @UseInterceptors(CacheInterceptor)
 export class ContactController {
   constructor(
     private readonly contactService: ContactService,
