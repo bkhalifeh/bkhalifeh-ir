@@ -120,6 +120,7 @@ model Experience {
   start   String
   end     String
   content String
+  link    String?
 
   about   About @relation(fields: [aboutId], references: [id], onDelete: Cascade)
   aboutId Int

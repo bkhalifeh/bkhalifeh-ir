@@ -23,7 +23,11 @@ block content
         .timeline
           each experience in about.experiences
             article.timeline__item
-              h5.title.title--h5.timeline__title= experience.title
+              if experience.link
+                a(href=`${experience.link}`, target="_blank")
+                  h5.title.title--h5.timeline__title= experience.title
+              else
+                h5.title.title--h5.timeline__title= experience.title
               span.timeline__period #{experience.start} - #{experience.end}
               p.timeline__description= experience.content
   .box-inner.box-inner--rounded
