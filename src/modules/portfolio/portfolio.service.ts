@@ -11,6 +11,9 @@ export class PortfolioService {
       include: {
         portfolioType: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     return { portfolioTypes, portfolios };
   }

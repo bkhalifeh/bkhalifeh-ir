@@ -8,10 +8,21 @@ export class AboutService {
   find() {
     return this.prismaService.about.findFirst({
       include: {
-        educations: true,
-        experiences: true,
+        educations: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
+        experiences: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
         skillTopics: {
           include: { skills: true },
+          orderBy: {
+            priority: 'desc',
+          },
         },
       },
     });
