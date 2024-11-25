@@ -10,4 +10,4 @@ Node.js 18+
 git clone https://github.com/bkhalifeh/personal-blog && cd personal-blog && bash install && pnpm run start
 ```
 
-Open <HOST>:<PORT> in browser and <HOST>:<PORT>/admin for manage content
+Open HOST:PORT in browser and HOST:PORT/admin for manage content
