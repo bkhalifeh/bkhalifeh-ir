@@ -28,7 +28,7 @@ html(lang="fa")
                 .badge.badge--gray= info.postition
                 .social
                   each il in info.links
-                    a.social__link(href=`${il.link}`)
+                    a.social__link(href=`${il.link}`, target="_blank")
                       i(class=`font-icon icon-${il.icon}`)
               .sidebar__info.box-inner.box-inner--rounded
                 ul.contacts-block
