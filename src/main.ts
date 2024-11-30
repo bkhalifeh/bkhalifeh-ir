@@ -1,10 +1,14 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './modules/app/app.module';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
-import favicon from 'serve-favicon';
-import morgan from 'morgan';
 import { ConfigService } from '@nestjs/config';
+import { NestExpressApplication } from '@nestjs/platform-express';
+
+import { join } from 'path';
+
+import morgan from 'morgan';
+import helmet from 'helmet';
+import favicon from 'serve-favicon';
+
+import { AppModule } from './modules/app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -15,6 +19,7 @@ async function bootstrap() {
 
   app.use(favicon(join(process.cwd(), 'static', 'img', 'favicon.ico')));
   app.use(morgan('dev'));
+  app.use(helmet());
 
   await app.listen(
     configService.get<number>('APP_PORT', 3000),
