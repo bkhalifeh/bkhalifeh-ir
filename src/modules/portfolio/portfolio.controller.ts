@@ -1,10 +1,8 @@
-import { CacheInterceptor } from '@nestjs/cache-manager';
-import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
 import { PortfolioService } from './portfolio.service';
 import { InfoService } from '../info/info.service';
 
 @Controller('portfolio')
-// @UseInterceptors(CacheInterceptor)
 export class PortfolioController {
   constructor(
     private readonly portfolioService: PortfolioService,
