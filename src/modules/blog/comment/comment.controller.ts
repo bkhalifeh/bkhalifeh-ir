@@ -3,6 +3,7 @@ import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dtos/create-comment.dto';
 import { Response } from 'express';
 import { Throttle } from '@nestjs/throttler';
+import slugify from 'slugify';
 
 @Controller('blog')
 export class CommentController {
@@ -10,12 +11,17 @@ export class CommentController {
 
   @Throttle({ default: { limit: 6, ttl: 60000 } })
   @Post(':slug/comment')
-  create(
+  async create(
     @Param('slug') slug: string,
     @Body() body: CreateCommentDto,
     @Res() res: Response,
   ) {
-    this.commentService.create(slug, body);
-    res.redirect(`/blog/${slug}`);
+    const s = slugify(slug);
+    const r = await this.commentService.create(s, body);
+    if (r) {
+      res.redirect(`/blog/${s}`);
+    } else {
+      res.redirect('/');
+    }
   }
 }

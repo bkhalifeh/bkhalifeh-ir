@@ -6,9 +6,9 @@ import { CreateCommentDto } from './dtos/create-comment.dto';
 export class CommentService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(slug: string, dto: CreateCommentDto) {
-    this.prismaService.comment
-      .create({
+  async create(slug: string, dto: CreateCommentDto) {
+    try {
+      const newComment = await this.prismaService.comment.create({
         data: {
           ...dto,
           post: {
@@ -17,7 +17,14 @@ export class CommentService {
             },
           },
         },
-      })
-      .then(() => {});
+      });
+      if (newComment) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 }
