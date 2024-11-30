@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 import { join } from 'path';
@@ -16,7 +17,14 @@ async function bootstrap() {
   app.disable('x-powered-by');
   app.setViewEngine('pug');
   app.setBaseViewsDir(join(process.cwd(), 'views'));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      disableErrorMessages: true,
+      stopAtFirstError: true,
+      whitelist: true,
+      transform: true,
+    }),
+  );
   app.use(favicon(join(process.cwd(), 'static', 'img', 'favicon.ico')));
   app.use(morgan('dev'));
   app.use(helmet());
