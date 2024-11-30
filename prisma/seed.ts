@@ -6,15 +6,16 @@ const PASSWORD = 'BeHZaD@bu@48';
 
 const prisma = new PrismaClient();
 async function main() {
+  const password = await argon2.hash(PASSWORD);
   prisma.user
     .upsert({
       where: { email: EMAIL },
       create: {
         email: EMAIL,
-        password: await argon2.hash(PASSWORD),
+        password,
       },
       update: {
-        password: await argon2.hash(PASSWORD),
+        password,
       },
     })
     .then(() => {});
