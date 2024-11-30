@@ -9,10 +9,10 @@ import { join } from 'path';
 import { BlogModule } from '../blog/blog.module';
 import { InfoModule } from '../info/info.module';
 import { AboutModule } from '../about/about.module';
-import { CacheModule } from '@nestjs/cache-manager';
 import { ContactModule } from '../contact/contact.module';
 import { AppController } from './app.controller';
 import { PortfolioModule } from '../portfolio/portfolio.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -21,7 +21,12 @@ import { PortfolioModule } from '../portfolio/portfolio.module';
       rootPath: join(process.cwd(), 'static'),
       serveRoot: '/static',
     }),
-    //CacheModule.register({ isGlobal: true }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 45,
+      },
+    ]),
     PrismaModule,
     UtilModule,
     InfoModule,

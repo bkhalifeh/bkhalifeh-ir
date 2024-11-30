@@ -1,19 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Redirect,
-  Render,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Redirect, Render } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { InfoService } from '../info/info.service';
-import { CacheInterceptor } from '@nestjs/cache-manager';
 import { CreateContactDto } from './dtos/create-contact.dto';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('contact')
-// @UseInterceptors(CacheInterceptor)
 export class ContactController {
   constructor(
     private readonly contactService: ContactService,
@@ -33,6 +24,7 @@ export class ContactController {
     };
   }
 
+  @Throttle({ default: { limit: 1, ttl: 300000 } })
   @Post()
   @Redirect('/about')
   createContact(@Body() body: CreateContactDto) {

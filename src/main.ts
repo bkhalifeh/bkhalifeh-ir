@@ -14,9 +14,13 @@ import { AppModule } from './modules/app/app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
+
   app.disable('x-powered-by');
+
+  app.set('trust proxy', true);
   app.setViewEngine('pug');
   app.setBaseViewsDir(join(process.cwd(), 'views'));
+
   app.useGlobalPipes(
     new ValidationPipe({
       disableErrorMessages: true,
