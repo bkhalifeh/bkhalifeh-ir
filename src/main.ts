@@ -33,9 +33,16 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.use(helmet());
 
-  await app.listen(
+  const server = await app.listen(
     configService.get<number>('APP_PORT', 3000),
     configService.get<string>('APP_HOST', '0.0.0.0'),
   );
+
+  process.on("SIGTERM", () => {
+    server.close((err) => {
+      if (err) process.exit(1);
+      process.exit(0);
+    });
+  });
 }
 bootstrap();
